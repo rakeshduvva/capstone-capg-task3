@@ -1,0 +1,30 @@
+# =============================================================================
+# Example tfvars — Safe to Commit
+# =============================================================================
+# Copy this file to terraform.tfvars and fill in your values:
+#   cp terraform.tfvars.example terraform.tfvars
+# =============================================================================
+
+project_name = "iac-capstone"
+environment  = "dev"
+aws_region   = "us-east-1"
+
+# Networking
+vpc_cidr             = "10.0.0.0/16"
+public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs = ["10.0.101.0/24", "10.0.102.0/24"]
+availability_zones   = ["us-east-1a", "us-east-1b"]
+
+# Compute
+instance_type    = "t2.micro"
+key_name         = ""
+allowed_ssh_cidr = "0.0.0.0/0"
+
+# Storage
+bucket_name = "your-unique-bucket-name-here"
+
+# Database
+db_name           = "appdb"
+db_username       = "admin"
+db_password       = "CHANGE_ME_TO_A_STRONG_PASSWORD"
+db_instance_class = "db.t3.micro"

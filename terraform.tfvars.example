@@ -1,9 +1,4 @@
-# =============================================================================
-# Example tfvars — Safe to Commit
-# =============================================================================
-# Copy this file to terraform.tfvars and fill in your values:
-#   cp terraform.tfvars.example terraform.tfvars
-# =============================================================================
+# Copy this file to terraform.tfvars and fill in your values
 
 project_name = "iac-capstone"
 environment  = "dev"

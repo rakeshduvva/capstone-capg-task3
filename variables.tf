@@ -1,10 +1,4 @@
-# =============================================================================
-# Input Variables — Root Module
-# =============================================================================
-
-# ---------------------------------------------------------------------------
 # General
-# ---------------------------------------------------------------------------
 variable "project_name" {
   description = "Name of the project, used for resource tagging"
   type        = string
@@ -28,9 +22,7 @@ variable "aws_region" {
   default     = "ap-south-1"
 }
 
-# ---------------------------------------------------------------------------
 # Networking
-# ---------------------------------------------------------------------------
 variable "vpc_cidr" {
   description = "CIDR block for the VPC"
   type        = string
@@ -55,17 +47,15 @@ variable "availability_zones" {
   default     = ["ap-south-1a", "ap-south-1b"]
 }
 
-# ---------------------------------------------------------------------------
 # Compute
-# ---------------------------------------------------------------------------
 variable "instance_type" {
-  description = "EC2 instance type (use t2.micro for free tier)"
+  description = "EC2 instance type"
   type        = string
   default     = "t2.micro"
 }
 
 variable "key_name" {
-  description = "Name of the SSH key pair for EC2 access (leave empty to skip)"
+  description = "Name of the SSH key pair for EC2 access"
   type        = string
   default     = ""
 }
@@ -76,18 +66,14 @@ variable "allowed_ssh_cidr" {
   default     = "0.0.0.0/0"
 }
 
-# ---------------------------------------------------------------------------
 # Storage
-# ---------------------------------------------------------------------------
 variable "bucket_name" {
   description = "Name of the S3 bucket (must be globally unique)"
   type        = string
   default     = "iac-capstone-app-storage"
 }
 
-# ---------------------------------------------------------------------------
 # Database
-# ---------------------------------------------------------------------------
 variable "db_name" {
   description = "Name of the RDS database"
   type        = string
@@ -108,7 +94,7 @@ variable "db_password" {
 }
 
 variable "db_instance_class" {
-  description = "RDS instance class (use db.t3.micro for free tier)"
+  description = "RDS instance class"
   type        = string
   default     = "db.t3.micro"
 }

@@ -1,13 +1,4 @@
-# =============================================================================
-# Outputs — Root Module
-# =============================================================================
-# These outputs are displayed after `terraform apply` and can be consumed
-# by other Terraform configurations or CI/CD pipelines.
-# =============================================================================
-
-# ---------------------------------------------------------------------------
-# Networking Outputs
-# ---------------------------------------------------------------------------
+# Networking
 output "vpc_id" {
   description = "ID of the created VPC"
   value       = module.networking.vpc_id
@@ -23,9 +14,7 @@ output "private_subnet_ids" {
   value       = module.networking.private_subnet_ids
 }
 
-# ---------------------------------------------------------------------------
-# Compute Outputs
-# ---------------------------------------------------------------------------
+# Compute
 output "ec2_instance_id" {
   description = "ID of the EC2 instance"
   value       = module.compute.instance_id
@@ -41,9 +30,7 @@ output "ec2_public_dns" {
   value       = module.compute.public_dns
 }
 
-# ---------------------------------------------------------------------------
-# Storage Outputs
-# ---------------------------------------------------------------------------
+# Storage
 output "s3_bucket_name" {
   description = "Name of the S3 bucket"
   value       = module.storage.bucket_name
@@ -54,9 +41,7 @@ output "s3_bucket_arn" {
   value       = module.storage.bucket_arn
 }
 
-# ---------------------------------------------------------------------------
-# Database Outputs
-# ---------------------------------------------------------------------------
+# Database
 output "rds_endpoint" {
   description = "Connection endpoint for the RDS instance"
   value       = module.database.db_endpoint

@@ -1,17 +1,5 @@
-# =============================================================================
-# Remote State Bootstrap — S3 + DynamoDB
-# =============================================================================
-# Run this FIRST (separately) to create the backend resources that Terraform
-# will use for remote state storage and locking.
-#
-# Usage:
-#   cd bootstrap/
-#   terraform init
-#   terraform apply
-#
-# After this succeeds, uncomment the backend "s3" block in the root main.tf
-# and run `terraform init` to migrate state.
-# =============================================================================
+# Bootstrap - creates S3 bucket and DynamoDB table for remote state
+# Run this first: cd bootstrap/ && terraform init && terraform apply
 
 terraform {
   required_version = ">= 1.6.0"
@@ -28,9 +16,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# ---------------------------------------------------------------------------
-# S3 Bucket for Terraform State
-# ---------------------------------------------------------------------------
+# S3 bucket for storing Terraform state
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "my-iac-project-tfstate"
 
@@ -71,9 +57,7 @@ resource "aws_s3_bucket_public_access_block" "terraform_state" {
   restrict_public_buckets = true
 }
 
-# ---------------------------------------------------------------------------
-# DynamoDB Table for State Locking
-# ---------------------------------------------------------------------------
+# DynamoDB table for state locking
 resource "aws_dynamodb_table" "terraform_lock" {
   name         = "terraform-state-lock"
   billing_mode = "PAY_PER_REQUEST"
@@ -90,9 +74,6 @@ resource "aws_dynamodb_table" "terraform_lock" {
   }
 }
 
-# ---------------------------------------------------------------------------
-# Outputs
-# ---------------------------------------------------------------------------
 output "state_bucket_name" {
   description = "Name of the S3 bucket for Terraform state"
   value       = aws_s3_bucket.terraform_state.bucket

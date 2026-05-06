@@ -1,16 +1,4 @@
-# =============================================================================
-# Module: Storage
-# =============================================================================
-# Creates:
-#   - S3 bucket with versioning enabled
-#   - Server-side encryption (AES-256)
-#   - Public access block (security best practice)
-#   - Lifecycle rule to transition old objects to cheaper storage
-# =============================================================================
-
-# ---------------------------------------------------------------------------
 # S3 Bucket
-# ---------------------------------------------------------------------------
 resource "aws_s3_bucket" "main" {
   bucket = var.bucket_name
 
@@ -19,9 +7,7 @@ resource "aws_s3_bucket" "main" {
   }
 }
 
-# ---------------------------------------------------------------------------
 # Versioning
-# ---------------------------------------------------------------------------
 resource "aws_s3_bucket_versioning" "main" {
   bucket = aws_s3_bucket.main.id
 
@@ -30,9 +16,7 @@ resource "aws_s3_bucket_versioning" "main" {
   }
 }
 
-# ---------------------------------------------------------------------------
-# Server-Side Encryption
-# ---------------------------------------------------------------------------
+# Server-side encryption
 resource "aws_s3_bucket_server_side_encryption_configuration" "main" {
   bucket = aws_s3_bucket.main.id
 
@@ -44,9 +28,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "main" {
   }
 }
 
-# ---------------------------------------------------------------------------
-# Block All Public Access
-# ---------------------------------------------------------------------------
+# Block all public access
 resource "aws_s3_bucket_public_access_block" "main" {
   bucket = aws_s3_bucket.main.id
 
@@ -56,9 +38,7 @@ resource "aws_s3_bucket_public_access_block" "main" {
   restrict_public_buckets = true
 }
 
-# ---------------------------------------------------------------------------
-# Lifecycle Rules — Archive old objects after 90 days
-# ---------------------------------------------------------------------------
+# Lifecycle rules
 resource "aws_s3_bucket_lifecycle_configuration" "main" {
   bucket = aws_s3_bucket.main.id
 

@@ -1,7 +1,3 @@
-# =============================================================================
-# Variables — Database Module
-# =============================================================================
-
 variable "project_name" {
   description = "Project name for resource naming"
   type        = string
@@ -46,6 +42,6 @@ variable "db_instance_class" {
 }
 
 variable "compute_sg_id" {
-  description = "Security group ID of the compute instance (for ingress rules)"
+  description = "Security group ID of the compute instance"
   type        = string
 }

@@ -1,7 +1,3 @@
-# =============================================================================
-# Outputs — Networking Module
-# =============================================================================
-
 output "vpc_id" {
   description = "ID of the VPC"
   value       = aws_vpc.main.id
@@ -28,6 +24,5 @@ output "internet_gateway_id" {
 }
 
 # output "nat_gateway_id" {
-#   description = "ID of the NAT Gateway"
-#   value       = aws_nat_gateway.main.id
+#   value = aws_nat_gateway.main.id
 # }

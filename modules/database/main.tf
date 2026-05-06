@@ -1,15 +1,4 @@
-# =============================================================================
-# Module: Database
-# =============================================================================
-# Creates:
-#   - DB subnet group (across private subnets)
-#   - Security group (MySQL 3306, ingress only from compute SG)
-#   - RDS MySQL instance (free-tier eligible)
-# =============================================================================
-
-# ---------------------------------------------------------------------------
 # DB Subnet Group
-# ---------------------------------------------------------------------------
 resource "aws_db_subnet_group" "main" {
   name       = "${var.project_name}-${var.environment}-db-subnet-group"
   subnet_ids = var.private_subnet_ids
@@ -19,9 +8,7 @@ resource "aws_db_subnet_group" "main" {
   }
 }
 
-# ---------------------------------------------------------------------------
-# Security Group — Only allows traffic from the compute security group
-# ---------------------------------------------------------------------------
+# Security Group - only allows traffic from the compute SG
 resource "aws_security_group" "rds" {
   name        = "${var.project_name}-${var.environment}-rds-sg"
   description = "Security group for RDS - allows MySQL traffic from EC2 only"
@@ -48,9 +35,7 @@ resource "aws_security_group" "rds" {
   }
 }
 
-# ---------------------------------------------------------------------------
 # RDS MySQL Instance
-# ---------------------------------------------------------------------------
 resource "aws_db_instance" "main" {
   identifier     = "${var.project_name}-${var.environment}-mysql"
   engine         = "mysql"
@@ -69,11 +54,10 @@ resource "aws_db_instance" "main" {
   db_subnet_group_name   = aws_db_subnet_group.main.name
   vpc_security_group_ids = [aws_security_group.rds.id]
 
-  # Free-tier & dev-friendly settings
-  multi_az               = false
-  publicly_accessible    = false        # ← Database is NOT publicly accessible
-  skip_final_snapshot    = true
-  deletion_protection    = false
+  multi_az                = false
+  publicly_accessible     = false
+  skip_final_snapshot     = true
+  deletion_protection     = false
   backup_retention_period = 1
 
   tags = {

@@ -6,6 +6,11 @@ Automated deployment of AWS infrastructure using Terraform with modular architec
 
 ## Architecture Overview
 
+![Architecture Diagram](docs/architecture.png)
+
+<details>
+<summary>Text version</summary>
+
 ```
 +-------------------------------------------------------------+
 |                        AWS Cloud                             |
@@ -42,6 +47,8 @@ Automated deployment of AWS infrastructure using Terraform with modular architec
 |  +--------------+                                            |
 +-------------------------------------------------------------+
 ```
+
+</details>
 
 ---
 

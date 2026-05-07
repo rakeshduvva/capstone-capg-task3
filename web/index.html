@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terraform Infrastructure Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-left">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Terraform Infrastructure Dashboard</h1>
+        <p class="header-sub" id="headerSub">No state file loaded</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="stat-pill">
+        <span class="dot dot-green"></span>
+        <span id="resourceCount">0</span> Resources
+      </div>
+      <div class="stat-pill">
+        <span class="dot dot-blue"></span>
+        <span id="moduleCount">0</span> Modules
+      </div>
+      <label class="btn-load" for="stateFile">Load terraform.tfstate</label>
+      <input type="file" id="stateFile" accept=".tfstate,.json" hidden>
+    </div>
+  </header>
+
+  <!-- Drop zone (shown when no state loaded) -->
+  <div class="drop-zone" id="dropZone">
+    <div class="drop-content">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+      <h2>Drop your terraform.tfstate here</h2>
+      <p>or click "Load terraform.tfstate" above</p>
+      <p class="drop-hint">The file is read locally in your browser. Nothing is uploaded.</p>
+    </div>
+  </div>
+
+  <!-- Dashboard (shown after state loaded) -->
+  <main class="main hidden" id="dashboard">
+    <!-- Summary bar -->
+    <section class="summary-bar" id="summaryBar"></section>
+    <!-- Resource grid -->
+    <div class="grid-container" id="resourceGrid"></div>
+  </main>
+
+  <!-- Detail Panel -->
+  <aside class="detail-panel" id="detailPanel">
+    <div class="detail-header">
+      <h2 id="detailTitle">Resource Details</h2>
+      <button class="btn-close" id="closePanel">&times;</button>
+    </div>
+    <div class="detail-body" id="detailBody"></div>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

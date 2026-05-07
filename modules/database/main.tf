@@ -61,6 +61,6 @@ resource "aws_db_instance" "main" {
   backup_retention_period = 1
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-mysql"
+    Name = "${var.project_name}-${var.environment}-mysql" 
   }
 }

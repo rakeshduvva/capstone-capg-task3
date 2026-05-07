@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IaC Capstone - Project Documentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #1a1a2e;
+    background: #fff;
+    line-height: 1.7;
+    padding: 40px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f0f23;
+    border-bottom: 3px solid #4361ee;
+    padding-bottom: 10px;
+    margin-bottom: 6px;
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-top: 36px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 6px;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+
+  h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #4a5568;
+    margin-top: 18px;
+    margin-bottom: 6px;
+    page-break-after: avoid;
+  }
+
+  p {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  .meta-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 16px 0 30px;
+    font-size: 13px;
+  }
+
+  .meta-item {
+    background: #f0f4ff;
+    border-left: 3px solid #4361ee;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+
+  .meta-item strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #4361ee;
+    letter-spacing: 0.5px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 20px;
+    font-size: 13px;
+  }
+
+  th {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  td {
+    padding: 7px 12px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  tr:nth-child(even) td { background: #f7fafc; }
+
+  .screenshot-block {
+    margin: 16px 0 24px;
+    page-break-inside: avoid;
+  }
+
+  .screenshot-block img {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .screenshot-block .caption {
+    font-size: 12px;
+    color: #555;
+    margin-top: 6px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .screenshot-block .caption strong {
+    font-style: normal;
+    color: #1a1a2e;
+  }
+
+  .bullet-list {
+    margin: 6px 0 12px 20px;
+    font-size: 13px;
+  }
+
+  .bullet-list li {
+    margin-bottom: 3px;
+  }
+
+  code {
+    font-family: 'Fira Code', monospace;
+    background: #f0f4ff;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #4361ee;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 30px 0;
+  }
+
+  .toc {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px 28px;
+    margin: 20px 0 30px;
+  }
+
+  .toc h3 {
+    margin-top: 0;
+    color: #1a1a2e;
+  }
+
+  .toc ol {
+    margin-left: 18px;
+    font-size: 14px;
+  }
+
+  .toc li { margin-bottom: 4px; }
+  .toc ol ol { margin-top: 4px; }
+
+  .section-divider {
+    text-align: center;
+    margin: 36px 0;
+    color: #a0aec0;
+    font-size: 20px;
+    letter-spacing: 8px;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .summary-card {
+    text-align: center;
+    padding: 16px;
+    border-radius: 8px;
+    color: #fff;
+  }
+
+  .summary-card.net { background: linear-gradient(135deg, #4361ee, #3a0ca3); }
+  .summary-card.comp { background: linear-gradient(135deg, #f72585, #b5179e); }
+  .summary-card.stor { background: linear-gradient(135deg, #f77f00, #e36414); }
+  .summary-card.db { background: linear-gradient(135deg, #7209b7, #560bad); }
+
+  .summary-card .count { font-size: 28px; font-weight: 700; }
+  .summary-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; }
+
+  @media print {
+    body { padding: 20px 30px; font-size: 12px; }
+    h1 { font-size: 24px; }
+    h2 { font-size: 18px; }
+    h3 { font-size: 15px; }
+    .screenshot-block { page-break-inside: avoid; }
+    .screenshot-block img { max-height: 420px; object-fit: contain; }
+    .meta-table { grid-template-columns: 1fr 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Infrastructure as Code (IaC) - Project Documentation</h1>
+<p class="subtitle">Capstone Project 3: Core Cloud Resources with Terraform</p>
+
+<div class="meta-table">
+  <div class="meta-item"><strong>Author</strong>Rakesh Duvva</div>
+  <div class="meta-item"><strong>Region</strong>Asia Pacific (Mumbai) - ap-south-1</div>
+  <div class="meta-item"><strong>Provider</strong>AWS &nbsp;|&nbsp; Terraform v1.15.1</div>
+  <div class="meta-item"><strong>Total Resources</strong>22 across 4 modules</div>
+  <div class="meta-item"><strong>Date</strong>May 6, 2026</div>
+  <div class="meta-item"><strong>Repository</strong>rakeshduvva/capstone-capg-task3</div>
+</div>
+
+<div class="summary-grid">
+  <div class="summary-card net"><div class="count">12</div><div class="label">Networking</div></div>
+  <div class="summary-card comp"><div class="count">2</div><div class="label">Compute</div></div>
+  <div class="summary-card stor"><div class="count">5</div><div class="label">Storage</div></div>
+  <div class="summary-card db"><div class="count">3</div><div class="label">Database</div></div>
+</div>
+
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <ol>
+    <li>Architecture Overview</li>
+    <li>Terraform Workflow
+      <ol>
+        <li>Initialization (terraform init)</li>
+        <li>Planning (terraform plan)</li>
+        <li>Deployment (terraform apply)</li>
+        <li>Destruction (terraform destroy)</li>
+      </ol>
+    </li>
+    <li>AWS Console Verification
+      <ol>
+        <li>Networking (VPC, Subnets, Route Tables, IGW)</li>
+        <li>Compute (EC2, Security Groups)</li>
+        <li>Storage (S3 Bucket)</li>
+        <li>Database (RDS MySQL)</li>
+      </ol>
+    </li>
+    <li>Infrastructure Dashboard</li>
+    <li>Summary</li>
+  </ol>
+</div>
+
+<!-- ========================================= -->
+<h2>1. Architecture Overview</h2>
+
+<div class="screenshot-block">
+  <img src="architecture.png" alt="Architecture Diagram">
+  <div class="caption"><strong>Figure 1.1:</strong> Cloud architecture diagram showing VPC (10.0.0.0/16) with public/private subnets across two AZs, EC2 in public subnet, RDS in private subnet, Internet Gateway, and S3 bucket.</div>
+</div>
+
+<table>
+  <tr><th>Module</th><th>Resources</th><th>Description</th></tr>
+  <tr><td>Networking</td><td>12</td><td>VPC, 4 Subnets, IGW, 2 Route Tables, 4 Route Table Associations</td></tr>
+  <tr><td>Compute</td><td>2</td><td>EC2 Instance (t3.micro), Security Group</td></tr>
+  <tr><td>Storage</td><td>5</td><td>S3 Bucket, Versioning, Encryption, Lifecycle, Public Access Block</td></tr>
+  <tr><td>Database</td><td>3</td><td>RDS MySQL (db.t3.micro), DB Subnet Group, Security Group</td></tr>
+</table>
+
+<div class="section-divider">* * *</div>
+
+<!-- ========================================= -->
+<h2>2. Terraform Workflow</h2>
+
+<h3>2.1 Terraform Init</h3>
+<p>Initializes the working directory, downloads the AWS provider, and prepares the modules.</p>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1776).png" alt="Terraform Init">
+  <div class="caption"><strong>Figure 2.1:</strong> <code>terraform init</code> completing successfully &mdash; hashicorp/aws v5.100.0 provider installed, backend initialized, provider plugins found in state.</div>
+</div>
+
+<h3>2.2 Terraform Plan</h3>
+<p>Previews the execution plan showing all 22 resources that will be created.</p>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1777).png" alt="Terraform Plan - Start">
+  <div class="caption"><strong>Figure 2.2:</strong> <code>terraform plan</code> reads the Amazon Linux AMI data source and begins listing resources to create, starting with <code>module.compute.aws_instance.app</code>.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1778).png" alt="Terraform Plan - Outputs">
+  <div class="caption"><strong>Figure 2.3:</strong> Plan summary showing planned outputs (subnet IDs, RDS endpoint, S3 bucket details, VPC ID). Confirms: <strong>"22 to add, 0 to change, 0 to destroy"</strong>.</div>
+</div>
+
+<h3>2.3 Terraform Apply (First Deployment)</h3>
+<p>Deploys all 22 resources to AWS. The RDS instance takes ~7 minutes to provision.</p>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1771).png" alt="Terraform Apply - DB Plan">
+  <div class="caption"><strong>Figure 2.4:</strong> <code>terraform apply</code> showing the database module plan with <code>aws_db_instance</code> resource details &mdash; encryption enabled, storage type gp3, skip_final_snapshot true.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1772).png" alt="Terraform Apply Complete">
+  <div class="caption"><strong>Figure 2.5:</strong> Apply complete. RDS creation took ~7 minutes. Outputs: EC2 Instance ID <code>i-08f1a5ba3ecbfde30</code>, Public IP <code>13.233.107.254</code>, S3 ARN <code>arn:aws:s3:::iac-capstone-app-storage-2026</code>, VPC <code>vpc-056640e08e088f75f</code>.</div>
+</div>
+
+<h3>2.4 Terraform Destroy (First Teardown)</h3>
+<p>Tears down all 22 resources to avoid AWS charges.</p>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1773).png" alt="Terraform Destroy - Refresh">
+  <div class="caption"><strong>Figure 2.6:</strong> <code>terraform destroy</code> refreshing state of all 22 resources before generating the destruction plan.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1774).png" alt="Terraform Destroy - Plan">
+  <div class="caption"><strong>Figure 2.7:</strong> Destruction plan showing detailed attributes of each resource to be removed, including subnet CIDR blocks, availability zones, and tags.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1775).png" alt="Terraform Destroy Complete">
+  <div class="caption"><strong>Figure 2.8:</strong> Destroy in progress &mdash; resources removed in dependency order. Final output: <strong>"Destroy complete! Resources: 22 destroyed."</strong></div>
+</div>
+
+<div class="section-divider">* * *</div>
+
+<!-- ========================================= -->
+<h2>3. AWS Console Verification</h2>
+<p>The following screenshots verify that all Terraform-managed resources were successfully provisioned in the AWS Management Console.</p>
+
+<h3>3.1 Networking</h3>
+
+<h4>VPC</h4>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1765).png" alt="VPC List">
+  <div class="caption"><strong>Figure 3.1:</strong> VPC Console showing <code>iac-capstone-dev-vpc</code> (vpc-056640e08e088f75f) in "Available" state alongside the default VPC.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1766).png" alt="VPC Details">
+  <div class="caption"><strong>Figure 3.2:</strong> VPC details &mdash; IPv4 CIDR: <code>10.0.0.0/16</code>, DNS resolution: Enabled, DNS hostnames: Enabled, Tenancy: default, Main route table and DHCP options set configured.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1767).png" alt="VPC Resource Map">
+  <div class="caption"><strong>Figure 3.3:</strong> VPC Resource Map showing the complete network topology: 1 VPC, 4 Subnets (2 public + 2 private across ap-south-1a and 1b), 3 Route Tables.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1769).png" alt="VPC Resource Map - IGW">
+  <div class="caption"><strong>Figure 3.4:</strong> Extended resource map showing Network Connections with the Internet Gateway <code>iac-capstone-dev-igw</code> connected to the public route table.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1770).png" alt="VPC Full View">
+  <div class="caption"><strong>Figure 3.5:</strong> Full-page zoomed-out view of VPC resource map &mdash; all 4 subnets, 3 route tables, and IGW visible in a hierarchical layout.</div>
+</div>
+
+<h4>Subnets</h4>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1761).png" alt="Subnets List">
+  <div class="caption"><strong>Figure 3.6:</strong> Subnets console showing all project subnets (public-1, private-1, private-2) in "Available" state within the VPC.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1762).png" alt="Public Subnet 1">
+  <div class="caption"><strong>Figure 3.7:</strong> Public Subnet 1 &mdash; CIDR: <code>10.0.1.0/24</code>, AZ: ap-south-1a, auto-assign public IPv4: Yes, 250 available IPs.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1763).png" alt="Private Subnet 1">
+  <div class="caption"><strong>Figure 3.8:</strong> Private Subnet 1 &mdash; CIDR: <code>10.0.101.0/24</code>, AZ: ap-south-1a, auto-assign public IPv4: No, 251 available IPs.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1764).png" alt="Private Subnet 2">
+  <div class="caption"><strong>Figure 3.9:</strong> Private Subnet 2 &mdash; CIDR: <code>10.0.102.0/24</code>, AZ: ap-south-1b, auto-assign public IPv4: No, 250 available IPs.</div>
+</div>
+
+<h3>3.2 Compute</h3>
+
+<h4>EC2 Instance</h4>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1758).png" alt="EC2 Instance List">
+  <div class="caption"><strong>Figure 3.10:</strong> EC2 Console showing <code>iac-capstone-d...</code> instance (i-08f1a5ba3ecbfde30) in "Running" state, t3.micro, ap-south-1a, 3/3 status checks passed.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1759).png" alt="EC2 Instance Summary">
+  <div class="caption"><strong>Figure 3.11:</strong> Instance summary &mdash; Public IP: <code>13.233.107.254</code>, Public DNS: <code>ec2-13-233-107-254.ap-south-1.compute.amazonaws.com</code>, VPC: iac-capstone-dev-vpc, Subnet: iac-capstone-dev-public-1, IMDSv2: Required.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1760).png" alt="EC2 Instance Details">
+  <div class="caption"><strong>Figure 3.12:</strong> Instance details &mdash; AMI: <code>ami-0133fbf29e0f5c476</code> (Amazon Linux 2023), Platform: Linux/UNIX, Launch time: May 06, 2026 11:18:43.</div>
+</div>
+
+<h4>Security Groups</h4>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1753).png" alt="Security Groups List">
+  <div class="caption"><strong>Figure 3.13:</strong> Security Groups console listing the two Terraform-managed groups: <code>iac-capstone-dev-rds-sg</code> and <code>iac-capstone-dev-ec2-sg</code>, both attached to the project VPC.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1754).png" alt="RDS Security Group">
+  <div class="caption"><strong>Figure 3.14:</strong> RDS Security Group &mdash; inbound rule: MySQL/Aurora (TCP 3306) restricted to EC2 security group only (not 0.0.0.0/0). Description: "Security group for RDS - allows MySQL traffic from EC2 only".</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1755).png" alt="EC2 Security Group">
+  <div class="caption"><strong>Figure 3.15:</strong> EC2 Security Group &mdash; 3 inbound rules: SSH (TCP 22), HTTP (TCP 80), HTTPS (TCP 443). Description: "Security group for the application EC2 instance".</div>
+</div>
+
+<h3>3.3 Storage</h3>
+
+<h4>S3 Bucket</h4>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1756).png" alt="S3 Buckets List">
+  <div class="caption"><strong>Figure 3.16:</strong> S3 Console showing <code>iac-capstone-app-storage-2026</code> bucket in Asia Pacific (Mumbai) ap-south-1, created May 6, 2026.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1757).png" alt="S3 Bucket Details">
+  <div class="caption"><strong>Figure 3.17:</strong> S3 bucket Objects tab &mdash; empty bucket with versioning enabled, server-side encryption (AES-256), lifecycle rules configured, and all public access blocked.</div>
+</div>
+
+<h3>3.4 Database</h3>
+
+<h4>RDS MySQL</h4>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1750).png" alt="RDS Database List">
+  <div class="caption"><strong>Figure 3.18:</strong> RDS Console showing <code>iac-capstone-dev-mysql</code> in "Creating" status, MySQL Community engine, db.t3.micro, ap-south-1b.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1752).png" alt="RDS Instance Summary">
+  <div class="caption"><strong>Figure 3.19:</strong> RDS instance summary &mdash; DB identifier: iac-capstone-dev-mysql, Engine: MySQL Community, Class: db.t3.micro, Internet access: Disabled (private only).</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1751).png" alt="RDS Security & Replication">
+  <div class="caption"><strong>Figure 3.20:</strong> RDS connectivity &mdash; Security group: <code>iac-capstone-dev-rds-sg</code>, replication role: Instance in ap-south-1b.</div>
+</div>
+
+<div class="section-divider">* * *</div>
+
+<!-- ========================================= -->
+<h2>4. Infrastructure Dashboard</h2>
+<p>A custom-built web dashboard (in <code>web/</code>) that parses the <code>terraform.tfstate</code> file to visualize all 22 resources in real-time.</p>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1792).png" alt="Dashboard Overview">
+  <div class="caption"><strong>Figure 4.1:</strong> Terraform Infrastructure Dashboard showing all 22 resources organized by module &mdash; Networking (12), Compute (2), Storage (5), Database (3). Each card displays resource type, name, ID, and key attributes.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1793).png" alt="Dashboard Detail Inspector">
+  <div class="caption"><strong>Figure 4.2:</strong> Resource detail inspector (slide-in panel) showing Internet Gateway details: resource type, module, ID, ARN, owner, VPC ID, tags, and dependencies.</div>
+</div>
+
+<div class="screenshot-block">
+  <img src="screenshots/Screenshot (1794).png" alt="Dashboard Storage & DB">
+  <div class="caption"><strong>Figure 4.3:</strong> Dashboard showing Storage and Database modules with S3 Bucket detail inspector &mdash; bucket name, domain names, regional endpoint, and CORS rules.</div>
+</div>
+
+<div class="section-divider">* * *</div>
+
+<!-- ========================================= -->
+<h2>5. Summary</h2>
+
+<table>
+  <tr><th>Aspect</th><th>Details</th></tr>
+  <tr><td>Modular Design</td><td>4 independent Terraform modules (networking, compute, storage, database)</td></tr>
+  <tr><td>Full Lifecycle</td><td>Init &rarr; Plan &rarr; Apply &rarr; Destroy demonstrated end-to-end</td></tr>
+  <tr><td>Security</td><td>Private subnets for RDS, restricted SGs, S3 public access blocked, encryption at rest</td></tr>
+  <tr><td>Policy-as-Code</td><td>7 OPA/Conftest rules enforcing security standards</td></tr>
+  <tr><td>Observability</td><td>Custom web dashboard for real-time infrastructure visualization</td></tr>
+  <tr><td>Console Verification</td><td>All resources confirmed via AWS Management Console</td></tr>
+</table>
+
+<div style="text-align:center; margin-top:40px; padding:20px; background:#f0f4ff; border-radius:8px;">
+  <p style="margin:0; font-size:13px; color:#4361ee;"><strong>Resources Managed:</strong> 22 &nbsp;&bull;&nbsp; <strong>Modules:</strong> 4</p>
+  <p style="margin:6px 0 0; font-size:12px; color:#888;">Rakesh Duvva &mdash; Cloud and DevSecOps Capstone &mdash; May 2026</p>
+</div>
+
+</body>
+</html>

@@ -23,13 +23,12 @@
    - [Storage (S3 Bucket)](#storage)
    - [Database (RDS MySQL)](#database)
 4. [Infrastructure Dashboard](#infrastructure-dashboard)
-5. [Second Deployment Cycle](#second-deployment-cycle)
 
 ---
 
 ## Architecture Overview
 
-![Architecture Diagram](docs/architecture.png)
+![Architecture Diagram](architecture.png)
 
 The infrastructure follows a modular Terraform architecture with 4 modules:
 
@@ -297,47 +296,7 @@ A custom-built web dashboard (in `web/`) that parses the `terraform.tfstate` fil
 
 *Dashboard scrolled to show Storage (S3 Bucket, Lifecycle, Public Access Block, Versioning) and Database (RDS Instance, DB Subnet Group, Security Group) modules. The S3 Bucket detail inspector shows bucket name, domain names, regional endpoint, and CORS rules.*
 
----
 
-## Second Deployment Cycle
-
-A second `terraform apply` and `terraform destroy` cycle was performed to verify reproducibility.
-
-### Second Apply
-
-![Second Apply - terraform apply confirmation](screenshots/Screenshot%20(1780).png)
-
-*Running `terraform apply` a second time, showing the plan summary and confirmation prompt.*
-
-![Second Apply - RDS creation progress (6m30s)](screenshots/Screenshot%20(1781).png)
-
-*The second deployment completing with RDS instance creation taking ~6m37s. Output: "Apply complete! Resources: 22 added, 0 changed, 0 destroyed."*
-
-![Second Apply - Complete with new resource IDs](screenshots/Screenshot%20(1782).png)
-
-*Second deployment outputs with new resource IDs:*
-- *EC2: `i-02fdc6f5de049b90f` (IP: 13.201.70.0)*
-- *VPC: `vpc-0efd2d5c0eddd5fd0`*
-- *S3: `iac-capstone-app-storage-2026`*
-- *RDS: `iac-capstone-dev-mysql.cvoga6e8oaeb.ap-south-1.rds.amazonaws.com:3306`*
-
-### Second Destroy
-
-![Second Destroy - Refreshing state for all 22 resources](screenshots/Screenshot%20(1783).png)
-
-*Terraform refreshing the state of all 22 resources before generating the destroy plan.*
-
-![Second Destroy - Destroy plan with subnet details](screenshots/Screenshot%20(1784).png)
-
-*The destroy plan showing detailed resource attributes that will be removed.*
-
-![Second Destroy - Resources being destroyed, confirmation prompt](screenshots/Screenshot%20(1785).png)
-
-*Destruction in progress after entering `yes`. Resources are destroyed in dependency-safe order.*
-
-![Second Destroy Complete - 22 resources destroyed](screenshots/Screenshot%20(1786).png)
-
-*Second destroy cycle completing successfully: "Destroy complete! Resources: 22 destroyed." The RDS instance took ~3m53s to destroy.*
 
 ---
 
@@ -346,11 +305,10 @@ A second `terraform apply` and `terraform destroy` cycle was performed to verify
 This project demonstrates a complete Infrastructure-as-Code workflow:
 
 1. **Modular Design** - 4 independent Terraform modules (networking, compute, storage, database)
-2. **Full Lifecycle** - Init, Plan, Apply, and Destroy across multiple deployment cycles
+2. **Full Lifecycle** - Init, Plan, Apply, and Destroy demonstrated end-to-end
 3. **Security** - Private subnets for RDS, restricted security groups, S3 public access blocked, encryption at rest
 4. **Policy-as-Code** - OPA/Conftest rules enforcing 7 security policies
-5. **Reproducibility** - Two complete apply/destroy cycles verified with consistent results
-6. **Observability** - Custom web dashboard for real-time infrastructure visualization
-7. **AWS Console Verification** - All resources confirmed via AWS Management Console
+5. **Observability** - Custom web dashboard for real-time infrastructure visualization
+6. **AWS Console Verification** - All resources confirmed via AWS Management Console
 
-**Total Screenshots:** 40 | **Resources Managed:** 22 | **Modules:** 4 | **Deployment Cycles:** 2
+**Resources Managed:** 22 | **Modules:** 4

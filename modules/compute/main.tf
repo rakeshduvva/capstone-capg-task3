@@ -71,7 +71,7 @@ resource "aws_instance" "app" {
     yum install -y httpd
     systemctl start httpd
     systemctl enable httpd
-    echo "<h1>IaC Capstone - Deployed via Terraform</h1>" > /var/www/html/index.html
+    echo "<h1>IaC Capstone - Deployed via Terraform by Duvva Rakesh</h1>" > /var/www/html/index.html
   EOF
 
   root_block_device {

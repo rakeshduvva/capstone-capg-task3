@@ -18,10 +18,11 @@ provider "aws" {
 
 # S3 bucket for storing Terraform state
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "my-iac-project-tfstate"
+  bucket        = "my-iac-project-tfstate"
+  force_destroy = true
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 
   tags = {
